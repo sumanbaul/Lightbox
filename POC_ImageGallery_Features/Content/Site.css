@@ -1,0 +1,154 @@
+﻿body {
+    padding-top: 50px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+body {
+    color: #f1f1f1;
+}
+
+.main-wrapper {
+    background: #333;
+}
+
+footer {
+    height: 50px;
+    width: 100%;
+    padding: 10px 0;
+    background: #6f6f6f;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    text-align:center;
+}
+
+.no-pad-wrap {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.metaWrapper, .folderWrapper {
+    position: fixed;
+    padding: 10px;
+}
+
+    .folderWrapper p {
+        color: #f1f1f1;
+    }
+
+#myUL {
+    padding-left: 0px;
+}
+
+.galleryWrapper {
+    padding-top: 10px;
+    padding-bottom: 15px;
+    background: #000;
+    height: 100vh;
+    max-height: 89vh;
+    overflow-y: scroll;
+}
+
+ul, #folderUL {
+    list-style-type: none;
+}
+
+#folderUL {
+    margin: 0;
+    padding: 0;
+}
+
+.folderCaret {
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari 3.1+ */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none;
+}
+
+    .folderCaret::before {
+        content: "\25B6";
+        color: #f1f1f1;
+        display: inline-block;
+        margin-right: 6px;
+    }
+
+.caret-down::before {
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Safari */
+    transform: rotate(90deg);
+}
+
+.nested {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+
+
+/*
+    Scrollbars
+
+*/
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* button */
+::-webkit-scrollbar-button {
+    background: #999;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #efefef;
+    border-radius: 5px;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #d46161;
+    }
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #707070;
+}
+
+/* The track NOT covered by the handle.
+::-webkit-scrollbar-track-piece {
+    background: #000; 
+}
+
+/* Corner */
+::-webkit-scrollbar-corner {
+    background: #999;
+}
+
+/* Resizer */
+::-webkit-resizer {
+    background: #111;
+}

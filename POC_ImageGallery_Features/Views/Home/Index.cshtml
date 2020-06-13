@@ -1,0 +1,186 @@
+@model POC_ImageGallery_Features.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.theme.min.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<link href="~/Content/External/SimpleLightBox/popup-lightbox.min.css" rel="stylesheet" />
+
+
+
+<script>
+    var SpecObject = null;
+</script>
+<div class="row no-pad-wrap main-wrapper">
+    <div class="col-lg-2 col-md-8 col-sm-2" style="height: 90vh;border-right: 10px solid #707070;">
+        <div class="folderWrapper">
+            <p>This is the folder structure are</p>
+
+            @*<ul id="folderUL">
+            <li>
+                <span class="folderCaret">Project</span>
+                <ul class="nested">
+                    <li>Project 1</li>
+                    <li>Project 2</li>
+                    <li>
+                        <span class="folderCaret">Project 3</span>
+                        <ul id="Chapter" class="nested">
+                            <li>Program 1</li>
+                            <li>Program 2</li>
+                            <li>
+                                <span class="folderCaret">Batch 1</span>
+                                <ul id="spec" class="nested">
+                                    <li>Spec 11111</li>
+                                    <li>Spec 11112</li>
+                                    <li>Spec 11113</li>
+                                    <li>Spec 11114</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>*@
+
+            @foreach (var item in Model.TreeNodesData)
+            {
+                <ul id="myUL">
+                    <li>
+                        <span class="folderCaret">@item.Chapter</span>
+                        <ul class="nested">
+                            @foreach (var nodes in item.Specs)
+                            {
+                                <li>@nodes</li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+            }
+        </div>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 galleryWrapper">
+        <div class="">
+        <div class="list-group flexbin flexbin-margin" id="sortableGallery">
+
+            @foreach (var item in Model.Photos)
+            {
+               
+                    <a href="#">
+                        @{
+                            var base64 = Convert.ToBase64String(item.Image);
+                            var imgsrc = String.Format("data:image/gif;base64,{0}", base64);
+                        }
+                        <img src='@imgsrc' id='@item.Id' />
+                    </a>
+               
+            }
+        </div>
+            </div>
+    </div>
+    <div id="leftdetails_screen" class="col-lg-2 col-md-2 col-sm-2" style="height: 90vh; padding-top: 5px;">
+        <div class="metaWrapper">
+        <form id="photoMetadataForm">
+            <input type="hidden" class="form-control"  id="photoid" name="photoid"/>
+            
+            <div class="form-group" id="image">                
+            </div>
+            <div class="form-group">
+                <label for="text">Vendor</label>
+                <input type="text" class="form-control" id="vendor" placeholder="Vendor name">
+            </div>
+            <div class="form-group">
+                <label for="text">Terms</label>
+                <input type="text" class="form-control" id="terms" placeholder="Terms">
+            </div>
+            <div class="form-group">
+                <label for="text">Description</label>
+                <textarea class="form-control" id="description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="text">Image URL</label>
+                <input type="text" readonly class="form-control" id="imageurl">
+            </div>
+
+            <button type="button" class="btn btn-primary" id="submit">Update</button>
+        </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#leftdetails_screen').hide();
+    });
+
+    //folder structure UI
+    var toggler = document.getElementsByClassName("folderCaret");
+    var i;
+
+    for (i = 0; i < toggler.length; i++) {
+      toggler[i].addEventListener("click", function() {
+        this.parentElement.querySelector(".nested").classList.toggle("active");
+        this.classList.toggle("caret-down");
+      });
+    }
+
+    $("#sortableGallery").sortable();
+    $('img').bind('click', function () {
+        $('#image').empty();
+        var img = $('<img id="dynamic" class="img-responsive">'); //Equivalent: $(document.createElement('img'))
+        img.attr('src', $(this).attr('src'));
+        img.appendTo('#image');
+        $.ajax({
+            type: "GET",
+            url: "/Home/GetPhotoById",
+            dataType: 'json',
+            data: { id: $(this).attr('id') },
+            success: function (result) {
+                debugger;
+                $("#photoid").text(result.Id);
+                $("#vendor").text(result.Vendor);
+                $("#terms").text(result.Terms);
+                $("#description").text(result.Description);
+                $("#imageurl").text(result.ImageUrl);
+
+
+            },
+            error: function (xhr, httpStatusMessage, customErrorMessage) {
+                if (xhr.status === 410) {
+                    alert(customErrorMessage);
+                }
+            }
+        });
+        $('#leftdetails_screen').show();
+
+    });
+
+    $('#submit').bind('click', function () {
+        var imageMetadata = {};
+        debugger;
+        imageMetadata.Id = $("#photoid").text();
+        imageMetadata.Vendor = $("#vendor").val();
+        imageMetadata.Terms = $("#terms").val();
+        imageMetadata.Description = $("#description").val();
+        alert($("#photoid").text());
+        alert($("#photoid").html());
+        debugger;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdatePhotoMetadata")',
+                data: '{imageMetadata: ' + JSON.stringify(imageMetadata) + '}',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+
+                },
+                error: function () {
+                    alert("Error while inserting data");
+                }
+            });
+    });
+
+</script>
