@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LightboxModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="CountryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityContainer Name="LightboxEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Country" EntityType="Self.Country" />
+    <EntitySet Name="Photos" EntityType="LightboxModel.Photos" />
+    <EntitySet Name="Arts" EntityType="LightboxModel.Arts" />
+    <EntitySet Name="Chapters" EntityType="LightboxModel.Chapters" />
+    <EntitySet Name="chapterSpecImage" EntityType="LightboxModel.chapterSpecImage" />
+    <EntitySet Name="Spec" EntityType="LightboxModel.Spec" />
+    <AssociationSet Name="FK_Chapters_Spec" Association="LightboxModel.FK_Chapters_Spec">
+      <End Role="Spec" EntitySet="Spec" />
+      <End Role="Chapters" EntitySet="Chapters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chapterSpecImage_Chapters" Association="LightboxModel.FK_chapterSpecImage_Chapters">
+      <End Role="Chapters" EntitySet="Chapters" />
+      <End Role="chapterSpecImage" EntitySet="chapterSpecImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chapterSpecImage_Photos" Association="LightboxModel.FK_chapterSpecImage_Photos">
+      <End Role="Photos" EntitySet="Photos" />
+      <End Role="chapterSpecImage" EntitySet="chapterSpecImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chapterSpecImage_Spec" Association="LightboxModel.FK_chapterSpecImage_Spec">
+      <End Role="Spec" EntitySet="Spec" />
+      <End Role="chapterSpecImage" EntitySet="chapterSpecImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Spec_Photos" Association="LightboxModel.FK_Spec_Photos">
+      <End Role="Photos" EntitySet="Photos" />
+      <End Role="Spec" EntitySet="Spec" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Photos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Vendor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Terms" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreditLine" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Restrictions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Keywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AssetType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PropertyRelease" Type="DateTime" Precision="0" />
+    <Property Name="Country" Type="Int64" />
+    <Property Name="Photoresearcher" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="IsApproved" Type="Boolean" />
+    <NavigationProperty Name="chapterSpecImage" Relationship="LightboxModel.FK_chapterSpecImage_Photos" FromRole="Photos" ToRole="chapterSpecImage" />
+    <NavigationProperty Name="Spec" Relationship="LightboxModel.FK_Spec_Photos" FromRole="Photos" ToRole="Spec" />
+  </EntityType>
+  <EntityType Name="Arts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IllustratorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="Int64" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Rep" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Website" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Int64" Nullable="false" />
+    <Property Name="Timeliness" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Availability" Type="DateTime" Precision="3" />
+    <Property Name="Launguage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AgeGroup" Type="Int32" />
+    <Property Name="Categories" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProgramsWorkedOn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ArtCommissioner" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="IsApproved" Type="Boolean" />
+    <Property Name="Keywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Chapters">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SpecId" Type="Int64" />
+    <NavigationProperty Name="Spec" Relationship="LightboxModel.FK_Chapters_Spec" FromRole="Chapters" ToRole="Spec" />
+    <NavigationProperty Name="chapterSpecImage" Relationship="LightboxModel.FK_chapterSpecImage_Chapters" FromRole="Chapters" ToRole="chapterSpecImage" />
+  </EntityType>
+  <EntityType Name="chapterSpecImage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="chapterId" Type="Int64" />
+    <Property Name="specId" Type="Int64" />
+    <Property Name="imageId" Type="Int64" />
+    <NavigationProperty Name="Chapters" Relationship="LightboxModel.FK_chapterSpecImage_Chapters" FromRole="chapterSpecImage" ToRole="Chapters" />
+    <NavigationProperty Name="Photos" Relationship="LightboxModel.FK_chapterSpecImage_Photos" FromRole="chapterSpecImage" ToRole="Photos" />
+    <NavigationProperty Name="Spec" Relationship="LightboxModel.FK_chapterSpecImage_Spec" FromRole="chapterSpecImage" ToRole="Spec" />
+  </EntityType>
+  <EntityType Name="Spec">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ImageId" Type="Int64" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Chapters" Relationship="LightboxModel.FK_Chapters_Spec" FromRole="Spec" ToRole="Chapters" />
+    <NavigationProperty Name="chapterSpecImage" Relationship="LightboxModel.FK_chapterSpecImage_Spec" FromRole="Spec" ToRole="chapterSpecImage" />
+    <NavigationProperty Name="Photos" Relationship="LightboxModel.FK_Spec_Photos" FromRole="Spec" ToRole="Photos" />
+  </EntityType>
+  <Association Name="FK_Chapters_Spec">
+    <End Type="LightboxModel.Spec" Role="Spec" Multiplicity="0..1" />
+    <End Type="LightboxModel.Chapters" Role="Chapters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Spec">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Chapters">
+        <PropertyRef Name="SpecId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chapterSpecImage_Chapters">
+    <End Type="LightboxModel.Chapters" Role="Chapters" Multiplicity="0..1" />
+    <End Type="LightboxModel.chapterSpecImage" Role="chapterSpecImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Chapters">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="chapterSpecImage">
+        <PropertyRef Name="chapterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chapterSpecImage_Photos">
+    <End Type="LightboxModel.Photos" Role="Photos" Multiplicity="0..1" />
+    <End Type="LightboxModel.chapterSpecImage" Role="chapterSpecImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Photos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="chapterSpecImage">
+        <PropertyRef Name="imageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chapterSpecImage_Spec">
+    <End Type="LightboxModel.Spec" Role="Spec" Multiplicity="0..1" />
+    <End Type="LightboxModel.chapterSpecImage" Role="chapterSpecImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Spec">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="chapterSpecImage">
+        <PropertyRef Name="specId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Spec_Photos">
+    <End Type="LightboxModel.Photos" Role="Photos" Multiplicity="0..1" />
+    <End Type="LightboxModel.Spec" Role="Spec" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Photos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Spec">
+        <PropertyRef Name="ImageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

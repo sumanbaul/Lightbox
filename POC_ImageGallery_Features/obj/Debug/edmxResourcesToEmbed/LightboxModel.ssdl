@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LightboxModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Arts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IllustratorName" Type="nvarchar(max)" />
+    <Property Name="Country" Type="bigint" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="email" Type="nvarchar(max)" />
+    <Property Name="Rep" Type="nvarchar(max)" />
+    <Property Name="Website" Type="nvarchar(max)" />
+    <Property Name="Price" Type="bigint" Nullable="false" />
+    <Property Name="Timeliness" Type="nvarchar(max)" />
+    <Property Name="Availability" Type="datetime" />
+    <Property Name="Launguage" Type="nvarchar(max)" />
+    <Property Name="AgeGroup" Type="int" />
+    <Property Name="Categories" Type="nvarchar(max)" />
+    <Property Name="ProgramsWorkedOn" Type="nvarchar(max)" />
+    <Property Name="ArtCommissioner" Type="nvarchar(max)" />
+    <Property Name="Image" Type="varbinary(max)" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsApproved" Type="bit" />
+    <Property Name="Keywords" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Chapters">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="SpecId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="chapterSpecImage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="chapterId" Type="bigint" />
+    <Property Name="specId" Type="bigint" />
+    <Property Name="imageId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" />
+    <Property Name="CountryName" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="Photos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Vendor" Type="nvarchar(max)" />
+    <Property Name="Terms" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="CreditLine" Type="nvarchar(max)" />
+    <Property Name="Restrictions" Type="nvarchar(max)" />
+    <Property Name="Keywords" Type="nvarchar(max)" />
+    <Property Name="ImageUrl" Type="nvarchar(max)" />
+    <Property Name="AssetType" Type="nvarchar(max)" />
+    <Property Name="PropertyRelease" Type="date" />
+    <Property Name="Country" Type="bigint" />
+    <Property Name="Photoresearcher" Type="nvarchar(max)" />
+    <Property Name="Image" Type="varbinary(max)" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsApproved" Type="bit" />
+  </EntityType>
+  <EntityType Name="Spec">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="ImageId" Type="bigint" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_Chapters_Spec">
+    <End Role="Spec" Type="Self.Spec" Multiplicity="0..1" />
+    <End Role="Chapters" Type="Self.Chapters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Spec">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Chapters">
+        <PropertyRef Name="SpecId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chapterSpecImage_Chapters">
+    <End Role="Chapters" Type="Self.Chapters" Multiplicity="0..1" />
+    <End Role="chapterSpecImage" Type="Self.chapterSpecImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Chapters">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="chapterSpecImage">
+        <PropertyRef Name="chapterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chapterSpecImage_Photos">
+    <End Role="Photos" Type="Self.Photos" Multiplicity="0..1" />
+    <End Role="chapterSpecImage" Type="Self.chapterSpecImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Photos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="chapterSpecImage">
+        <PropertyRef Name="imageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chapterSpecImage_Spec">
+    <End Role="Spec" Type="Self.Spec" Multiplicity="0..1" />
+    <End Role="chapterSpecImage" Type="Self.chapterSpecImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Spec">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="chapterSpecImage">
+        <PropertyRef Name="specId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Spec_Photos">
+    <End Role="Photos" Type="Self.Photos" Multiplicity="0..1" />
+    <End Role="Spec" Type="Self.Spec" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Photos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Spec">
+        <PropertyRef Name="ImageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LightboxModelStoreContainer">
+    <EntitySet Name="Arts" EntityType="Self.Arts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Chapters" EntityType="Self.Chapters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="chapterSpecImage" EntityType="Self.chapterSpecImage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Photos" EntityType="Self.Photos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Spec" EntityType="Self.Spec" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Chapters_Spec" Association="Self.FK_Chapters_Spec">
+      <End Role="Spec" EntitySet="Spec" />
+      <End Role="Chapters" EntitySet="Chapters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chapterSpecImage_Chapters" Association="Self.FK_chapterSpecImage_Chapters">
+      <End Role="Chapters" EntitySet="Chapters" />
+      <End Role="chapterSpecImage" EntitySet="chapterSpecImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chapterSpecImage_Photos" Association="Self.FK_chapterSpecImage_Photos">
+      <End Role="Photos" EntitySet="Photos" />
+      <End Role="chapterSpecImage" EntitySet="chapterSpecImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chapterSpecImage_Spec" Association="Self.FK_chapterSpecImage_Spec">
+      <End Role="Spec" EntitySet="Spec" />
+      <End Role="chapterSpecImage" EntitySet="chapterSpecImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Spec_Photos" Association="Self.FK_Spec_Photos">
+      <End Role="Photos" EntitySet="Photos" />
+      <End Role="Spec" EntitySet="Spec" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

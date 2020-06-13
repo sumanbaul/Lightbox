@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LightboxModelStoreContainer" CdmEntityContainer="LightboxEntities">
+    <EntitySetMapping Name="Country">
+      <EntityTypeMapping TypeName="LightboxModel.Country">
+        <MappingFragment StoreEntitySet="Country">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Photos">
+      <EntityTypeMapping TypeName="LightboxModel.Photos">
+        <MappingFragment StoreEntitySet="Photos">
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Photoresearcher" ColumnName="Photoresearcher" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="PropertyRelease" ColumnName="PropertyRelease" />
+          <ScalarProperty Name="AssetType" ColumnName="AssetType" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Keywords" ColumnName="Keywords" />
+          <ScalarProperty Name="Restrictions" ColumnName="Restrictions" />
+          <ScalarProperty Name="CreditLine" ColumnName="CreditLine" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Terms" ColumnName="Terms" />
+          <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Arts">
+      <EntityTypeMapping TypeName="LightboxModel.Arts">
+        <MappingFragment StoreEntitySet="Arts">
+          <ScalarProperty Name="Keywords" ColumnName="Keywords" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="ArtCommissioner" ColumnName="ArtCommissioner" />
+          <ScalarProperty Name="ProgramsWorkedOn" ColumnName="ProgramsWorkedOn" />
+          <ScalarProperty Name="Categories" ColumnName="Categories" />
+          <ScalarProperty Name="AgeGroup" ColumnName="AgeGroup" />
+          <ScalarProperty Name="Launguage" ColumnName="Launguage" />
+          <ScalarProperty Name="Availability" ColumnName="Availability" />
+          <ScalarProperty Name="Timeliness" ColumnName="Timeliness" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Website" ColumnName="Website" />
+          <ScalarProperty Name="Rep" ColumnName="Rep" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="IllustratorName" ColumnName="IllustratorName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Chapters">
+      <EntityTypeMapping TypeName="LightboxModel.Chapters">
+        <MappingFragment StoreEntitySet="Chapters">
+          <ScalarProperty Name="SpecId" ColumnName="SpecId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="chapterSpecImage">
+      <EntityTypeMapping TypeName="LightboxModel.chapterSpecImage">
+        <MappingFragment StoreEntitySet="chapterSpecImage">
+          <ScalarProperty Name="imageId" ColumnName="imageId" />
+          <ScalarProperty Name="specId" ColumnName="specId" />
+          <ScalarProperty Name="chapterId" ColumnName="chapterId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Spec">
+      <EntityTypeMapping TypeName="LightboxModel.Spec">
+        <MappingFragment StoreEntitySet="Spec">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
